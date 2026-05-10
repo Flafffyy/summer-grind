@@ -558,7 +558,7 @@ useEffect(() => {
               return (
                 <div key={i} className="card" style={{marginBottom:10,borderLeft:`2px solid ${done?"#22c55e":"#334155"}`,opacity:done?0.7:1}}>
                   <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",cursor:"pointer"}}
-                    onClick={()=>setExpandedEx(expandedEx===key ? null : key)}>
+                    onClick={()=>setExpandedEx(expandedEx===key ? {} : key)}>
                     <div style={{flex:1}}>
                       <div style={{display:"flex",alignItems:"center",gap:8}}>
                         <button onClick={e=>{e.stopPropagation();setCompletedEx(p=>({...p,[key]:!p[key]}))}
