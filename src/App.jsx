@@ -365,8 +365,8 @@ If you can't identify food clearly, return: {"error":"Could not identify food cl
   return (
     <div style={{
       background: "#0f172a", color: "#f1f5f9", minHeight: "100vh",
-      fontFamily: "'DM Sans', system-ui, sans-serif", maxWidth: 440, margin: "0 auto",
-      display: "flex", flexDirection: "column", overflowX: "hidden",
+      fontFamily: "'DM Sans', system-ui, sans-serif",
+      display: "flex", flexDirection: "column", overflowX: "hidden", boxSizing: "border-box",
     }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Bebas+Neue&display=swap');
@@ -409,7 +409,7 @@ If you can't identify food clearly, return: {"error":"Could not identify food cl
       </div>
 
       {/* ── CONTENT ── */}
-      <div style={{ flex: 1, overflowY: "auto", overflowX: "hidden", paddingBottom: 80 }}>
+      <div style={{ flex: 1, overflowY: "auto", overflowX: "hidden", paddingBottom: 80, width: "100%", boxSizing: "border-box" }}>
 
         {/* ══════════ HOME ══════════ */}
         {page === "home" && (
