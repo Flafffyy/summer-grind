@@ -207,9 +207,10 @@ const [water, setWater] = useState(
   const [scanState, setScanState] = useState("idle"); // idle | scanning | result
   const [scanResult, setScanResult] = useState(null);
   const [scanError, setScanError] = useState("");
-const [completedEx, setCompletedEx] = useState(
-  JSON.parse(localStorage.getItem("completedEx")) || {}
-);
+const [completedEx, setCompletedEx] = useState(() => {
+  const saved = localStorage.getItem("completedEx");
+  return saved ? JSON.parse(saved) : {};
+});
   const [skincareTab, setSkincareTab] = useState("morning");
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
