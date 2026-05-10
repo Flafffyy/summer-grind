@@ -255,7 +255,7 @@ const [completedEx, setCompletedEx] = useState(() => {
     stopCamera();
     setScanState("analyzing");
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("/api/analyze", {
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body: JSON.stringify({
@@ -605,10 +605,10 @@ useEffect(() => {
  
         {/* ══════════ NUTRITION ══════════ */}
         {page === "nutrition" && (
-          <div className="slide-in" style={{padding:20}}>
+          <div className="slide-in" style={{padding:20,overflowX:"hidden"}}>
             {/* Macro summary */}
             <div className="card" style={{marginBottom:16}}>
-              <div style={{display:"flex",justifyContent:"space-around",marginBottom:12}}>
+              <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:8,marginBottom:12}}>
                 {[
                   {label:"Calories",val:totalCal,max:USER.calorieTarget,color:"#f97316",unit:""},
                   {label:"Protein",val:totalP,max:USER.proteinTarget,color:"#22c55e",unit:"g"},
@@ -617,7 +617,7 @@ useEffect(() => {
                 ].map(m=>(
                   <div key={m.label} style={{textAlign:"center"}}>
                     <div style={{position:"relative",display:"inline-block"}}>
-                      <Ring val={m.val} max={m.max} color={m.color} size={52} stroke={5}/>
+                      <Ring val={m.val} max={m.max} color={m.color} size={44} stroke={4}/>
                       <div style={{position:"absolute",inset:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
                         <div style={{fontSize:11,fontWeight:700,color:m.color}}>{m.val}</div>
                       </div>
