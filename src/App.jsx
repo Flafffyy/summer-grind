@@ -366,7 +366,7 @@ If you can't identify food clearly, return: {"error":"Could not identify food cl
     <div style={{
       background: "#0f172a", color: "#f1f5f9", minHeight: "100vh",
       fontFamily: "'DM Sans', system-ui, sans-serif", maxWidth: 440, margin: "0 auto",
-      display: "flex", flexDirection: "column",
+      display: "flex", flexDirection: "column", overflowX: "hidden",
     }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Bebas+Neue&display=swap');
