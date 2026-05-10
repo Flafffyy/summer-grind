@@ -409,11 +409,11 @@ If you can't identify food clearly, return: {"error":"Could not identify food cl
       </div>
 
       {/* ── CONTENT ── */}
-      <div style={{ flex: 1, overflowY: "auto", paddingBottom: 80 }}>
+      <div style={{ flex: 1, overflowY: "auto", overflowX: "hidden", paddingBottom: 80 }}>
 
         {/* ══════════ HOME ══════════ */}
         {page === "home" && (
-          <div className="slide-in" style={{ padding: 20 }}>
+          <div className="slide-in" style={{ padding: 20, width: "100%", boxSizing: "border-box" }}>
             {/* Tip of the day */}
             <div style={{ background: "linear-gradient(135deg,#1c2a3a,#1e293b)", borderRadius: 14, padding: 16, border: "1px solid #334155", marginBottom: 20 }}>
               <div style={{ fontSize: 11, color: "#f97316", fontWeight: 700, letterSpacing: "0.1em", marginBottom: 6 }}>TODAY'S TIP</div>
@@ -516,7 +516,7 @@ If you can't identify food clearly, return: {"error":"Could not identify food cl
 
         {/* ══════════ WORKOUT ══════════ */}
         {page === "workout" && (
-          <div className="slide-in" style={{ padding: 20 }}>
+          <div className="slide-in" style={{ padding: 20, width: "100%", boxSizing: "border-box" }}>
             {/* Day selector */}
             <div style={{ display: "flex", gap: 6, overflowX: "auto", paddingBottom: 8, marginBottom: 16 }}>
               {DAYS.map(d => (
@@ -610,7 +610,7 @@ If you can't identify food clearly, return: {"error":"Could not identify food cl
 
         {/* ══════════ NUTRITION ══════════ */}
         {page === "nutrition" && (
-          <div className="slide-in" style={{ padding: 20, overflowX: "hidden" }}>
+          <div className="slide-in" style={{ padding: 20, overflowX: "hidden", width: "100%", boxSizing: "border-box" }}>
             {/* Macro summary */}
             <div className="card" style={{ marginBottom: 16 }}>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginBottom: 12 }}>
@@ -692,7 +692,7 @@ If you can't identify food clearly, return: {"error":"Could not identify food cl
 
         {/* ══════════ SCANNER ══════════ */}
         {page === "scanner" && (
-          <div className="slide-in" style={{ padding: 20 }}>
+          <div className="slide-in" style={{ padding: 20, width: "100%", boxSizing: "border-box" }}>
             <div className="section-title">AI FOOD SCANNER</div>
             <div style={{ fontSize: 13, color: "#64748b", marginBottom: 16 }}>Point camera at any food — stores, fast food, home cooked — and get instant nutrition info.</div>
 
@@ -781,7 +781,7 @@ If you can't identify food clearly, return: {"error":"Could not identify food cl
 
         {/* ══════════ TIPS ══════════ */}
         {page === "tips" && (
-          <div className="slide-in" style={{ padding: 20 }}>
+          <div className="slide-in" style={{ padding: 20, width: "100%", boxSizing: "border-box" }}>
 
             {/* Skincare */}
             <div className="section-title">SKINCARE ROUTINE</div>
