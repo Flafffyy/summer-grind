@@ -558,7 +558,7 @@ useEffect(() => {
               return (
                 <div key={i} className="card" style={{marginBottom:10,borderLeft:`2px solid ${done?"#22c55e":"#334155"}`,opacity:done?0.7:1}}>
                   <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",cursor:"pointer"}}
-                    onClick={()=>setExpandedEx(expandedEx===key ? {} : key)}>
+                    onClick={()=>setExpandedEx(prev => ({...prev, [key]: !prev[key]}))}>
                     <div style={{flex:1}}>
                       <div style={{display:"flex",alignItems:"center",gap:8}}>
                         <button onClick={e=>{e.stopPropagation();setCompletedEx(p=>({...p,[key]:!p[key]}))}
@@ -577,9 +577,9 @@ useEffect(() => {
                         <span className="tag" style={{background:"#1a2535",color:"#64748b",fontSize:11}}>{ex.rest}</span>
                       </div>
                     </div>
-                    <span style={{color:"#475569",fontSize:16}}>{expandedEx===key?"▲":"▼"}</span>
+                    <span style={{color:"#475569",fontSize:16}}>{expandedEx[key] ? "▲" : "▼"}</span>
                   </div>
-                  {expandedEx===key && (
+                  {expandedEx[key] && (
                     <div style={{marginTop:10,paddingTop:10,borderTop:"1px solid #334155",marginLeft:28}}>
                       <div style={{fontSize:12,color:"#22c55e"}}>💡 {ex.tip}</div>
                     </div>
