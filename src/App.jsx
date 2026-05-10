@@ -211,6 +211,9 @@ const [completedEx, setCompletedEx] = useState(() => {
   const saved = localStorage.getItem("completedEx");
   return saved ? JSON.parse(saved) : {};
 });
+
+  const [expandedEx, setExpandedEx] = useState({});
+
   const [skincareTab, setSkincareTab] = useState("morning");
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
