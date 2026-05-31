@@ -46,6 +46,7 @@ const todayDate = new Date().toISOString().split("T")[0];
 export default function App() {
 const defaultWorkout = todayWorkout === "Rest" ? "Push" : todayWorkout;  const [workout, setWorkout] = useState(defaultWorkout);
   const [expanded, setExpanded] = useState(null);
+  const [expandedHistory, setExpandedHistory] = useState(null);
   const [tab, setTab] = useState("workout");
   const [timer, setTimer] = useState(0);
   const [timerActive, setTimerActive] = useState(false);
@@ -98,7 +99,7 @@ const defaultWorkout = todayWorkout === "Rest" ? "Push" : todayWorkout;  const [
     .slice(0, 15);
 
   return (
-    <div style={{ background:"#0f172a", color:"#f1f5f9", minHeight:"100vh", fontFamily:"'DM Sans', system-ui, sans-serif", maxWidth:440, margin:"0 auto", display:"flex", flexDirection:"column", overflowX:"hidden" }}>
+    <div style={{ background:"#0f172a", color:"#f1f5f9", minHeight:"100vh", fontFamily:"'DM Sans', system-ui, sans-serif", width:"100%", maxWidth:"100%", margin:"0 auto", display:"flex", flexDirection:"column", overflowX:"hidden" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Bebas+Neue&display=swap');
         * { box-sizing: border-box; }
@@ -152,8 +153,7 @@ const defaultWorkout = todayWorkout === "Rest" ? "Push" : todayWorkout;  const [
         ))}
       </div>
 
-      <div style={{ flex:1, overflowY:"auto", paddingBottom:24 }}>
-
+<div style={{ flex:1, width:"100%", overflowY:"auto", paddingBottom:24 }}>
         {/* WORKOUT TAB */}
         {tab === "workout" && (
           <div style={{ padding:"16px 16px 0" }}>
@@ -303,8 +303,23 @@ const defaultWorkout = todayWorkout === "Rest" ? "Push" : todayWorkout;  const [
               const totalSets = Object.values(data).reduce((s,ex) => s+Object.values(ex.sets||{}).filter(x=>x.done).length, 0);
               const totalDone = w.exercises.filter((_,i) => Object.values(data[i]?.sets||{}).filter(s=>s.done).length >= w.exercises[i].sets).length;
               return (
-                <div key={key} style={{ background:"#1e293b", borderRadius:12, padding:"14px 16px", marginBottom:10, borderLeft:`3px solid ${w.color}` }}>
-                  <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:8 }}>
+<div
+  key={key}
+  onClick={() =>
+    setExpandedHistory(
+      expandedHistory === key ? null : key
+    )
+  }
+  style={{
+    background:"#1e293b",
+    borderRadius:12,
+    padding:"14px 16px",
+    marginBottom:10,
+    borderLeft:`3px solid ${w.color}`,
+    cursor:"pointer",
+    width:"100%"
+  }}
+>                  <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:8 }}>
                     <div>
                       <div style={{ fontWeight:700, fontSize:15 }}>{w.emoji} {type}</div>
                       <div style={{ fontSize:11, color:"#475569", marginTop:2 }}>{date}</div>
@@ -314,17 +329,61 @@ const defaultWorkout = todayWorkout === "Rest" ? "Push" : todayWorkout;  const [
                       <div style={{ fontSize:11, color:"#475569" }}>{totalSets} sets</div>
                     </div>
                   </div>
-                  <div style={{ borderTop:"1px solid #334155", paddingTop:8 }}>
-                    {Object.entries(data).map(([idx, ex]) => {
-                      const doneSets = Object.values(ex.sets||{}).filter(s=>s.done).length;
-                      if (!ex.name || doneSets===0) return null;
-                      return (
-                        <div key={idx} style={{ display:"flex", justifyContent:"space-between", fontSize:12, color:"#64748b", paddingTop:4 }}>
-                          <span style={{ overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap", flex:1, marginRight:8 }}>{ex.name}</span>
-<span style={{ flexShrink:0 }}>{ex.weight?`${ex.weight} lbs · `:""}{doneSets} sets</span>                        </div>
-                      );
-                    })}
-                  </div>
+                  {expandedHistory === key && (
+  <div
+    style={{
+      borderTop:"1px solid #334155",
+      paddingTop:10,
+      marginTop:10
+    }}
+  >
+    {Object.entries(data).map(([idx, ex]) => {
+      const doneSets =
+        Object.values(ex.sets || {}).filter(
+          s => s.done
+        ).length;
+
+      if (!ex.name || doneSets === 0) return null;
+
+      return (
+        <div
+          key={idx}
+          style={{
+            padding:"10px 0",
+            borderBottom:"1px solid #334155"
+          }}
+        >
+          <div
+            style={{
+              fontWeight:600,
+              color:"#f1f5f9"
+            }}
+          >
+            {ex.name}
+          </div>
+
+          <div
+            style={{
+              fontSize:12,
+              color:"#94a3b8"
+            }}
+          >
+            Weight: {ex.weight || "-"} lbs
+          </div>
+
+          <div
+            style={{
+              fontSize:12,
+              color:"#94a3b8"
+            }}
+          >
+            Completed Sets: {doneSets}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+)}
                 </div>
               );
             })}
