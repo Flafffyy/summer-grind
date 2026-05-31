@@ -91,6 +91,7 @@ const defaultWorkout = todayWorkout === "Rest" ? "Push" : todayWorkout;  const [
   };
 
   const doneSetsForEx = (i) => Object.values(session[i]?.sets || {}).filter(s => s.done).length;
+  const deleteSession = (key) => setLogs(prev => { const next = {...prev}; delete next[key]; return next; });
   const completedExercises = currentWorkout.exercises.filter((ex, i) => doneSetsForEx(i) >= ex.sets).length;
 
   const recentSessions = Object.entries(logs)
@@ -324,10 +325,11 @@ const defaultWorkout = todayWorkout === "Rest" ? "Push" : todayWorkout;  const [
                       <div style={{ fontWeight:700, fontSize:15 }}>{w.emoji} {type}</div>
                       <div style={{ fontSize:11, color:"#475569", marginTop:2 }}>{date}</div>
                     </div>
-                    <div style={{ textAlign:"right" }}>
-                      <div style={{ fontSize:13, fontWeight:700, color:w.color }}>{totalDone}/{w.exercises.length} done</div>
-                      <div style={{ fontSize:11, color:"#475569" }}>{totalSets} sets</div>
-                    </div>
+                    <div style={{ textAlign:"right", display:"flex", flexDirection:"column", alignItems:"flex-end", gap:4 }}>
+  <div style={{ fontSize:13, fontWeight:700, color:w.color }}>{totalDone}/{w.exercises.length} done</div>
+  <div style={{ fontSize:11, color:"#475569" }}>{totalSets} sets</div>
+  <button onClick={e => { e.stopPropagation(); deleteSession(key); }} style={{ fontSize:11, color:"#ef4444", background:"#3d1515", border:"1px solid #7f1d1d", borderRadius:6, padding:"3px 10px", cursor:"pointer", fontFamily:"inherit", marginTop:2 }}>Delete</button>
+</div>
                   </div>
                   {expandedHistory === key && (
   <div
