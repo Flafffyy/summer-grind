@@ -40,11 +40,11 @@ const WORKOUTS = {
 const DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 const SCHEDULE = { Monday:"Push", Tuesday:"Pull", Wednesday:"Rest", Thursday:"Legs", Friday:"Push", Saturday:"Pull", Sunday:"Rest" };
 const todayName = DAYS[new Date().getDay()];
+const todayWorkout = SCHEDULE[todayName];
 const todayDate = new Date().toISOString().split("T")[0];
 
 export default function App() {
-  const defaultWorkout = SCHEDULE[todayName] !== "Rest" ? SCHEDULE[todayName] : "Push";
-  const [workout, setWorkout] = useState(defaultWorkout);
+const defaultWorkout = todayWorkout === "Rest" ? "Push" : todayWorkout;  const [workout, setWorkout] = useState(defaultWorkout);
   const [expanded, setExpanded] = useState(null);
   const [tab, setTab] = useState("workout");
   const [timer, setTimer] = useState(0);
@@ -157,7 +157,29 @@ export default function App() {
         {/* WORKOUT TAB */}
         {tab === "workout" && (
           <div style={{ padding:"16px 16px 0" }}>
+<div
+  style={{
+    background:"#1e293b",
+    borderRadius:12,
+    padding:"14px",
+    marginBottom:14,
+    borderLeft:`4px solid ${currentWorkout.color}`
+  }}
+>
+  <div style={{ fontSize:11, color:"#64748b", fontWeight:700 }}>
+    TODAY'S WORKOUT
+  </div>
 
+  <div style={{ fontSize:24, fontWeight:700, color:currentWorkout.color }}>
+    {todayWorkout}
+  </div>
+
+  <div style={{ fontSize:12, color:"#94a3b8" }}>
+    {todayWorkout === "Rest"
+      ? "Recovery Day"
+      : WORKOUTS[todayWorkout].focus}
+  </div>
+</div>
             {/* Push / Pull / Legs selector */}
             <div style={{ display:"flex", gap:8, marginBottom:14 }}>
               {["Push","Pull","Legs"].map(w => (
